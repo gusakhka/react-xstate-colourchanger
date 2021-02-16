@@ -46,7 +46,7 @@ export const dmMkapp: MachineConfig<SDSContext, any, SDSEvent> = ({
 
 	invok_guery: {
 	    invoke: {
-		id: 'invokation',
+		id: 'decide',
                 src: (context, event) => nluRequest(context.statement),
                 onDone: {
                     target: 'select',
