@@ -16,7 +16,7 @@ function promptAndAsk(prompt: string): MachineConfig<SDSContext, any, SDSEvent> 
 };
 
 const proxyUrl = "https://cors-anywhere.herokuapp.com/";
-const rasaurl = 'https://mkappointment.herkuapp.com/model/parse'
+const rasaurl = 'https://mkappointment.herokuapp.com/model/parse'
 
 export const nluRequest = (text: string) =>
     fetch(new Request(proxyUrl+ rasaurl, {
