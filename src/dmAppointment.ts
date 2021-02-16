@@ -1,4 +1,5 @@
 import { MachineConfig, send, Action, assign } from "xstate";
+import { dmMkapp } from "./mkapp";
 
 
 
@@ -85,7 +86,7 @@ const BooleanGrammar: { [index: string]: { clarity?: boolean } } = {
 }
 
 export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = ({
-    initial: 'init',
+    initial: 'welcome',
     states: {
         init: {
             on: {
@@ -196,7 +197,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = ({
                 RECOGNISED: [{
                     cond: (context) => BooleanGrammar[context.recResult].clarity === true,
                     actions: assign((context) => { return { clarity: BooleanGrammar[context.recResult].clarity } }),
-                    target: "create_appoinment"
+                    target: "create_appointment"
 
                 },
                 {
@@ -257,7 +258,7 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = ({
                 RECOGNISED: [{
                     cond: (context) => BooleanGrammar[context.recResult].clarity === true,
                     actions: assign((context) => { return { clarity: BooleanGrammar[context.recResult].clarity } }),
-                    target: "create_appoinment"
+                    target: "create_appointment"
 
                 },
                 {
@@ -286,13 +287,15 @@ export const dmMachine: MachineConfig<SDSContext, any, SDSEvent> = ({
             }
         },
 
-        create_appoinment: {
+        create_appointment: {
             initial: "prompt",
-            on: { ENDSPEECH: "init" },
+            on: { 
+                ENDSPEECH: "init" },
             states: {
                 prompt: { entry: say("Your appointment has been created") }
             }
         },
+    
     },
 })
         
