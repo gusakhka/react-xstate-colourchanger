@@ -13,7 +13,7 @@ function promptAndAsk(prompt: string): MachineConfig<SDSContext, any, SDSEvent> 
 		entry: send('LISTEN'),
             },
 	}})
-}
+};
 
 const proxyUrl = "https://cors-anywhere.herokuapp.com/";
 const rasaurl = 'https://mkappointment.herkuapp.com/model/parse'
