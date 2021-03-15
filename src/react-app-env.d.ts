@@ -13,6 +13,8 @@ interface SDSContext {
     time: string
     rasa_finder: string,
     statement: string,
+    counts: number,
+    task: string
    
 
 }
@@ -20,6 +22,7 @@ interface SDSContext {
 type SDSEvent =
     | { type: 'CLICK' }
     | { type: 'RECOGNISED' }
+    | { type: 'MAXSPEECH' }
     | { type: 'ASRRESULT', value: string }
     | { type: 'ENDSPEECH' }
     | { type: 'LISTEN' }

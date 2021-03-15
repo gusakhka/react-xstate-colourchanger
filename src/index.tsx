@@ -1,10 +1,12 @@
 import "./styles.scss";
 import * as React from "react";
 import * as ReactDOM from "react-dom";
-import { Machine, assign, send, State } from "xstate";
+import { Machine, assign, send, State, actions } from "xstate";
+const {cancel} = actions;
 import { useMachine, asEffect } from "@xstate/react";
 import { inspect } from "@xstate/inspect";
-import { dmMkapp } from "./mkapp";
+import { dmMachine } from "./dmAppointmentPlus";
+// import { dmMachine } from "./dmSmartHome";
 
 
 inspect({
@@ -20,7 +22,7 @@ const machine = Machine<SDSContext, any, SDSEvent>({
     type: 'parallel',
     states: {
         dm: {
-            ...dmMkapp
+            ...dmMachine
         },
         asrtts: {
             initial: 'idle',
@@ -43,7 +45,8 @@ const machine = Machine<SDSContext, any, SDSEvent>({
                                 assign((_context, event) => { return { recResult: event.value } })],
                             target: '.match'
                         },
-                        RECOGNISED: 'idle'
+                        RECOGNISED: {target:'idle', actions: [cancel('timeout'), assign((context) => { return { counts: 0 } })]},
+                        MAXSPEECH: 'idle'
                     },
                     states: {
                         match: {
